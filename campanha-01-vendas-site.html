@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Império Biju — Relatório de Campanha · 01 [VENDAS] - Site</title>
+<!--
+  TEMPLATE PARAMÉTRICO — Relatório de Resultados (Agência Prince)
+  IDENTIDADE FIXA: paleta e tipografia são SEMPRE as do prince-design
+  (dark cosmic + verde #47ad84) — decisão de 08/07/2026, nunca muda por cliente.
+  O que é do cliente: logo na capa (data URI) e o conteúdo/dados.
+  Dados: Meta Marketing API (act_1115155310437990), campanha 120254790185730569,
+  período 16/07–22/07/2026, extraído em 22/07/2026.
+-->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+  :root{
+    /* prince-design/colors_and_type.css — tokens oficiais */
+    --green:        #47ad84;
+    --green-bright: #61ce70;
+    --green-deep:   #2f8f6a;
+    --ink:          #0e1d27;
+    --bg:           #070e11;   /* cosmic-900 canvas */
+    --surface:      #0d1519;   /* cosmic-800 card   */
+    --surface-2:    #101c22;   /* cosmic-750        */
+    --surface-3:    #16242c;   /* cosmic-700 hover  */
+    --border:       #1c2a30;   /* cosmic-600        */
+    --border-green: rgba(71,173,132,.35);
+    --accent-soft:  rgba(71,173,132,.14);
+    --text:         #ffffff;
+    --text-2:       #c3c0d8;   /* cosmic-200 */
+    --text-3:       #808285;   /* cosmic-300 */
+    --warning:      #f0ad4e;
+    --danger:       #ff3939;
+    --font-display: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-sans:    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ font-family:var(--font-sans); color:var(--text-2); background:#010101; }
+  .page{ max-width:900px; margin:0 auto 28px; background:linear-gradient(180deg,#0b1620 0%,#070e11 100%);
+         border:1px solid var(--border); border-radius:16px;
+         padding:48px 52px; box-shadow:0 8px 24px rgba(0,0,0,.45); }
+  h1,h2,h3{ font-family:var(--font-display); color:var(--text); }
+  h2{ font-size:24px; font-weight:700; letter-spacing:-0.02em; }
+  .rule{ width:42px; height:3px; background:var(--green); border-radius:2px; margin:12px 0 26px; }
+  p, li, td, th{ font-size:14px; line-height:1.65; }
+
+  /* ---------- CAPA ---------- */
+  .cover{ text-align:center; padding:80px 40px 70px; position:relative; overflow:hidden; }
+  .cover::before{ content:""; position:absolute; inset:0;
+    background:radial-gradient(60% 50% at 50% 0%, rgba(71,173,132,.28) 0%, rgba(71,173,132,0) 70%); }
+  .cover > *{ position:relative; }
+  .cover .logo-circle{ width:130px; height:130px; border-radius:50%; background:#fff; overflow:hidden;
+    display:flex; align-items:center; justify-content:center; margin:0 auto 34px;
+    border:3px solid var(--green); box-shadow:0 0 40px rgba(71,173,132,.35); }
+  .cover .logo-circle img{ width:118%; height:118%; object-fit:cover; }
+  .cover h1{ font-size:44px; font-weight:700; letter-spacing:-0.03em; }
+  .cover .doc{ font-family:var(--font-display); font-size:13px; font-weight:600; letter-spacing:0.18em;
+               text-transform:uppercase; margin-top:38px; color:var(--green); }
+  .cover .meta{ font-size:12px; color:var(--text-3); margin-top:12px; letter-spacing:1px; }
+
+  /* ---------- KPIs ---------- */
+  .kpis{ display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:8px; }
+  .kpi{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
+  .kpi .label{ font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-3); }
+  .kpi .valor{ font-size:26px; margin-top:6px; font-family:var(--font-display); font-weight:700;
+               letter-spacing:-0.02em; color:var(--text); }
+  .kpi .delta{ font-size:12px; margin-top:4px; }
+  .delta.up{ color:var(--green-bright); } .delta.down{ color:var(--danger); } .delta.flat{ color:var(--text-3); }
+  .nota{ font-size:11.5px; color:var(--text-3); font-style:italic; margin-bottom:26px; }
+
+  /* ---------- ALERTA ---------- */
+  .alerta{ background:rgba(240,173,78,.08); border:1px solid rgba(240,173,78,.4); border-radius:12px;
+           padding:18px 22px; margin-bottom:26px; }
+  .alerta h3{ color:var(--warning); font-size:14px; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
+  .alerta p{ color:var(--text-2); }
+
+  /* ---------- TABELA ---------- */
+  table{ width:100%; border-collapse:collapse; background:var(--surface); border:1px solid var(--border);
+         border-radius:12px; overflow:hidden; }
+  th{ background:var(--surface-2); color:var(--green); font-family:var(--font-display); font-size:11px;
+      letter-spacing:1px; text-transform:uppercase; padding:10px 12px; text-align:left; font-weight:600; }
+  td{ padding:9px 12px; border-top:1px solid var(--border); color:var(--text-2); }
+  tr:nth-child(even) td{ background:var(--surface-2); }
+  .num{ text-align:right; font-variant-numeric:tabular-nums; }
+
+  /* ---------- BARRAS ---------- */
+  .bars{ margin:18px 0 6px; }
+  .bar-row{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .bar-row .bar-label{ width:210px; font-size:12px; flex-shrink:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .bar-row .bar-track{ flex:1; background:var(--surface); border:1px solid var(--border); border-radius:4px; height:20px; }
+  .bar-row .bar-fill{ height:100%; background:linear-gradient(90deg,var(--green-deep),var(--green)); border-radius:3px; }
+  .bar-row .bar-val{ width:90px; font-size:12px; text-align:right; font-variant-numeric:tabular-nums; }
+
+  /* ---------- FUNIL ---------- */
+  .funil .bar-label{ width:240px; }
+
+  /* ---------- CARDS ---------- */
+  .cols{ display:flex; gap:22px; flex-wrap:wrap; }
+  .col{ flex:1; min-width:300px; }
+  .card{ background:var(--surface); border-radius:12px; padding:20px 22px; border:1px solid var(--border); margin-bottom:14px; }
+  .card h3{ font-size:14px; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px; font-weight:600; }
+  .card.good{ border-color:var(--border-green); }
+  .card.good h3{ color:var(--green-bright); } .card.bad h3{ color:var(--warning); }
+  .card li{ margin-bottom:9px; padding-left:18px; position:relative; list-style:none; }
+  .card li strong{ color:var(--text); } .card li em{ color:var(--text); font-style:italic; }
+  .card.good li::before{ content:"✓"; position:absolute; left:0; color:var(--green); font-weight:bold; }
+  .card.bad li::before{ content:"!"; position:absolute; left:0; color:var(--warning); font-weight:bold; }
+  .card.next li::before{ content:"→"; position:absolute; left:0; color:var(--green-bright); font-weight:bold; }
+
+  .rodape{ text-align:center; font-size:11px; color:var(--text-3); letter-spacing:2px;
+           text-transform:uppercase; padding:26px 0 6px; }
+  @media (max-width:640px){ .page{ padding:32px 22px; } .cover h1{ font-size:30px; letter-spacing:-0.01em; } }
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="page cover">
+  <div class="logo-circle"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2ZmZiIvPjx0ZXh0IHg9IjEwMCIgeT0iMTMyIiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSI4NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzBlMWQyNyI+SUI8L3RleHQ+PC9zdmc+" alt="Império Biju"></div>
+  <h1>Império Biju</h1>
+  <div class="doc">Relatório de Campanha — 01 [VENDAS] - Site</div>
+  <div class="meta">Meta Ads · 16/07 a 22/07/2026 · Agência Prince · 22/07/2026</div>
+</div>
+
+<!-- RESUMO EXECUTIVO -->
+<div class="page">
+  <h2>Resumo da Campanha</h2>
+  <div class="rule"></div>
+  <div class="kpis">
+    <div class="kpi"><div class="label">Investimento</div><div class="valor">R$ 45,18</div><div class="delta flat">orçamento R$ 15/dia</div></div>
+    <div class="kpi"><div class="label">Impressões</div><div class="valor">3.354</div><div class="delta flat">alcance 2.381 · freq. 1,41</div></div>
+    <div class="kpi"><div class="label">Cliques no link</div><div class="valor">78</div><div class="delta flat">CPC link R$ 0,58</div></div>
+    <div class="kpi"><div class="label">CTR</div><div class="valor">3,34%</div><div class="delta up">acima da média do varejo</div></div>
+    <div class="kpi"><div class="label">CPM</div><div class="valor">R$ 13,47</div><div class="delta flat">saudável pro segmento</div></div>
+    <div class="kpi"><div class="label">Compras</div><div class="valor">0</div><div class="delta flat">volume ainda mínimo</div></div>
+  </div>
+  <p class="nota">Campanha de vendas (objetivo compras no site), ativa desde 16/07/2026. Fonte: Meta Marketing API (conta act_1115155310437990), extraído em 22/07/2026.</p>
+
+  <div class="alerta">
+    <h3>⚠ Alerta operacional — entrega travada desde 20/07</h3>
+    <p>A campanha está com status <strong>ativo</strong>, mas o gasto caiu de ~R$ 15/dia para <strong>R$ 0,05 no dia 20/07 e zero desde então</strong>. Isso normalmente indica problema de <em>pagamento/saldo da conta</em>, limite de gastos atingido ou rejeição de anúncio. Precisa ser verificado no Gerenciador antes de qualquer leitura de performance.</p>
+  </div>
+
+  <h2>Leitura da Prince</h2>
+  <div class="rule"></div>
+  <div class="cols">
+    <div class="col"><div class="card good"><h3>O que funcionou</h3><ul>
+      <li><strong>Atração está boa:</strong> CTR de 3,34% e CPC no link de R$ 0,58 — o criativo chama atenção e o custo do clique está barato</li>
+      <li><strong>CPM saudável</strong> (R$ 13,47): o público não está caro de alcançar</li>
+      <li>29 visitas à página (custo de R$ 1,56 por visita) e 7 visualizações de produto já registradas pelo pixel</li>
+    </ul></div></div>
+    <div class="col"><div class="card bad"><h3>Pontos de atenção</h3><ul>
+      <li><strong>Funil quebra depois do clique:</strong> dos 78 cliques, só 29 viraram visita carregada (37%) — pode ser site lento no celular ou cliques de curiosidade</li>
+      <li><strong>Nenhum "adicionar ao carrinho"</strong> nas 7 visualizações de produto — cedo pra concluir, mas é o próximo gargalo a observar</li>
+      <li><strong>0 compras em R$ 45 investidos</strong> — normal nesse volume; uma venda ainda não era estatisticamente esperada</li>
+      <li>Entrega parada desde 20/07 (ver alerta acima) — a campanha perdeu 2+ dias de aprendizado</li>
+    </ul></div></div>
+  </div>
+</div>
+
+<!-- EVOLUÇÃO DIÁRIA -->
+<div class="page">
+  <h2>Evolução Diária</h2>
+  <div class="rule"></div>
+  <div class="bars">
+    <div class="bar-row"><div class="bar-label">Qui 16/07</div><div class="bar-track"><div class="bar-fill" style="width:32%"></div></div><div class="bar-val">R$ 4,85</div></div>
+    <div class="bar-row"><div class="bar-label">Sex 17/07</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-val">R$ 15,13</div></div>
+    <div class="bar-row"><div class="bar-label">Sáb 18/07</div><div class="bar-track"><div class="bar-fill" style="width:99%"></div></div><div class="bar-val">R$ 14,92</div></div>
+    <div class="bar-row"><div class="bar-label">Dom 19/07</div><div class="bar-track"><div class="bar-fill" style="width:68%"></div></div><div class="bar-val">R$ 10,23</div></div>
+    <div class="bar-row"><div class="bar-label">Seg 20/07</div><div class="bar-track"><div class="bar-fill" style="width:1%"></div></div><div class="bar-val">R$ 0,05</div></div>
+    <div class="bar-row"><div class="bar-label">Ter 21/07 – Qua 22/07</div><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><div class="bar-val">R$ 0,00</div></div>
+  </div>
+  <table>
+    <thead><tr><th>Dia</th><th class="num">Investimento</th><th class="num">Impressões</th><th class="num">Cliques link</th><th class="num">Visitas</th><th class="num">Ver produto</th><th class="num">Compras</th></tr></thead>
+    <tbody>
+      <tr><td>16/07</td><td class="num">R$ 4,85</td><td class="num">242</td><td class="num">9</td><td class="num">5</td><td class="num">0</td><td class="num">0</td></tr>
+      <tr><td>17/07</td><td class="num">R$ 15,13</td><td class="num">1.091</td><td class="num">22</td><td class="num">8</td><td class="num">3</td><td class="num">0</td></tr>
+      <tr><td>18/07</td><td class="num">R$ 14,92</td><td class="num">877</td><td class="num">25</td><td class="num">11</td><td class="num">4</td><td class="num">0</td></tr>
+      <tr><td>19/07</td><td class="num">R$ 10,23</td><td class="num">1.127</td><td class="num">21</td><td class="num">5</td><td class="num">0</td><td class="num">0</td></tr>
+      <tr><td>20/07</td><td class="num">R$ 0,05</td><td class="num">17</td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+      <tr><td>21–22/07</td><td class="num">R$ 0,00</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td></tr>
+    </tbody>
+  </table>
+  <p class="nota">Queda abrupta em 20/07 sem alteração de campanha registrada — verificar cobrança/saldo da conta de anúncios.</p>
+
+  <h2>Funil da Campanha</h2>
+  <div class="rule"></div>
+  <div class="bars funil">
+    <div class="bar-row"><div class="bar-label">Impressões</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-val">3.354</div></div>
+    <div class="bar-row"><div class="bar-label">Cliques no link</div><div class="bar-track"><div class="bar-fill" style="width:42%"></div></div><div class="bar-val">78</div></div>
+    <div class="bar-row"><div class="bar-label">Visitas carregadas (37% dos cliques)</div><div class="bar-track"><div class="bar-fill" style="width:22%"></div></div><div class="bar-val">29</div></div>
+    <div class="bar-row"><div class="bar-label">Visualizações de produto</div><div class="bar-track"><div class="bar-fill" style="width:8%"></div></div><div class="bar-val">7</div></div>
+    <div class="bar-row"><div class="bar-label">Adicionar ao carrinho</div><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><div class="bar-val">0</div></div>
+    <div class="bar-row"><div class="bar-label">Compras</div><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><div class="bar-val">0</div></div>
+  </div>
+  <p class="nota">Escala das barras é ilustrativa (funil não-linear). Produtos vistos somam R$ 258,50 em valor de catálogo.</p>
+</div>
+
+<!-- ANÚNCIOS -->
+<div class="page">
+  <h2>Desempenho por Anúncio</h2>
+  <div class="rule"></div>
+  <p style="margin-bottom:16px">Conjunto único ativo: <strong style="color:var(--text)">01 - Pub. Interesse</strong>. Três anúncios em rotação:</p>
+  <table>
+    <thead><tr><th>Anúncio</th><th class="num">Investimento</th><th class="num">Impressões</th><th class="num">Cliques link</th><th class="num">CTR</th><th class="num">CPM</th><th class="num">Visitas</th><th class="num">Ver produto</th></tr></thead>
+    <tbody>
+      <tr><td>AD 03</td><td class="num">R$ 23,39</td><td class="num">760</td><td class="num">20</td><td class="num">5,39%</td><td class="num">R$ 30,78</td><td class="num">11</td><td class="num">4</td></tr>
+      <tr><td>AD 02</td><td class="num">R$ 19,57</td><td class="num">2.467</td><td class="num">55</td><td class="num">2,43%</td><td class="num">R$ 7,93</td><td class="num">16</td><td class="num">1</td></tr>
+      <tr><td>AD 04</td><td class="num">R$ 2,22</td><td class="num">127</td><td class="num">3</td><td class="num">8,66%</td><td class="num">R$ 17,48</td><td class="num">2</td><td class="num">2</td></tr>
+    </tbody>
+  </table>
+  <p class="nota">Nenhum anúncio registrou compra no período. Leitura com cautela: volume por anúncio ainda é pequeno.</p>
+
+  <div class="cols" style="margin-top:22px">
+    <div class="col"><div class="card good"><h3>Destaques</h3><ul>
+      <li><strong>AD 02</strong> é o cavalo de tração: CPM baratíssimo (R$ 7,93) e maior volume de cliques e visitas</li>
+      <li><strong>AD 03</strong> tem o público mais qualificado até aqui: CTR 5,39% e 4 das 7 visualizações de produto</li>
+      <li><strong>AD 04</strong> mal entregou (R$ 2,22), mas o CTR de 8,66% merece chance de rodar mais</li>
+    </ul></div></div>
+    <div class="col"><div class="card bad"><h3>Cuidado</h3><ul>
+      <li>O CPM do AD 03 (R$ 30,78) é <strong>4x o do AD 02</strong> — clique qualificado, mas caro de exibir</li>
+      <li>Com R$ 45 totais, ainda não dá pra eleger vencedor — o Meta mal saiu da fase de aprendizado</li>
+    </ul></div></div>
+  </div>
+</div>
+
+<!-- PRÓXIMOS PASSOS -->
+<div class="page">
+  <h2>Próximos Passos</h2>
+  <div class="rule"></div>
+  <div class="card next"><ul>
+    <li><strong>URGENTE — destravar a entrega:</strong> verificar forma de pagamento, saldo e limite de gastos da conta (parada desde 20/07)</li>
+    <li>Checar a velocidade do site no celular — 63% dos cliques não viram visita carregada, e isso é dinheiro pago sem página vista</li>
+    <li>Manter os 3 anúncios rodando até ~R$ 150 investidos antes de pausar qualquer um</li>
+    <li>Acompanhar o passo "adicionar ao carrinho" — é o próximo sinal de que o funil está destravando</li>
+    <li>Reavaliar em 7 dias de entrega cheia com nova extração</li>
+  </ul></div>
+  <div class="rodape">Agência Prince · relatório gerado para Império Biju</div>
+</div>
+
+</body>
+</html>
